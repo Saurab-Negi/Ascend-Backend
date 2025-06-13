@@ -1,0 +1,34 @@
+# "service" is the name of this project. This will also be added to your AWS resource names.
+service: ascend
+
+stages:
+  default:
+    params:
+      tableName: "ascend-${sls:stage}"
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: ap-south-1
+  httpApi:
+    cors: true
+  iam:
+    role:
+      statements: ${file(src/config/iamRoleStatements.yml)}
+  environment: ${file(src/config/environment.yml)}
+
+functions:
+  ${file(src/functions/httpApi.yml)}
+
+resources:
+  ${file(src/resources/dynamoTables.yml)}
+
+plugins:
+  - serverless-offline
+
+build:
+  esbuild:
+    minify: true
+
+package:
+  individually: true

@@ -1,0 +1,9 @@
+api:
+  handler: src/handler.handler
+  events:
+    - httpApi:
+        path: /createStKey
+        method: post
+    - httpApi:
+        path: /createQuestion
+        method: post
