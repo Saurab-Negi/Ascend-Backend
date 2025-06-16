@@ -5,5 +5,24 @@ api:
         path: /createStKey
         method: post
     - httpApi:
+        path: /getStKey
+        method: get
+    - httpApi:
+        path: /updateStKey/{id}
+        method: patch
+    - httpApi:
+        path: /deleteStKey/{id}
+        method: delete
+
+    - httpApi:
         path: /createQuestion
         method: post
+    - httpApi:
+        path: /getAllQuestions
+        method: get
+    - httpApi:
+        path: /updateQuestion/{id}
+        method: patch
+    - httpApi:
+        path: /deleteQuestion/{id}
+        method: delete

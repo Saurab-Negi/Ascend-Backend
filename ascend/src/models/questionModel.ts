@@ -8,6 +8,10 @@ const questionSchema = new dynamoose.Schema(
       type: String,
       hashKey: true,
     },
+    stKeyName: {
+      type: String,
+      required: true,
+    },
     stKeyId: {
       type: String,
       required: true,

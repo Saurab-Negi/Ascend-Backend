@@ -5,7 +5,7 @@ declare module "express-serve-static-core" {
     sendFormattedResponse: (
       statusCode?: number,
       success?: boolean,
-      message?: string,
+      message?: string | null,
       data?: any,
       error?: any
     ) => void;
