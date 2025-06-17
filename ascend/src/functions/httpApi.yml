@@ -2,6 +2,10 @@ api:
   handler: src/handler.handler
   events:
     - httpApi:
+        path: /createUser
+        method: post
+
+    - httpApi:
         path: /createStKey
         method: post
     - httpApi:

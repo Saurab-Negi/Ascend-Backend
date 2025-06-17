@@ -9,6 +9,7 @@
     - dynamodb:DeleteItem
     - dynamodb:DescribeTable
   Resource:
+    - Fn::GetAtt: [UserTable, Arn]
     - Fn::GetAtt: [StKeyTable, Arn]
     - Fn::GetAtt: [QuestionTable, Arn]
     - Fn::Sub: "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${QuestionTable}/index/stKeyIdIndex"

@@ -51,7 +51,7 @@ export const updateStKey = async (req: Request, res: Response) => {
 
     const stKey = await stKeyModel.get(stKeyId);
     if (!stKey) {
-      return res.sendFormattedResponse(204, false, `StKey not found with id: ${stKeyId}`);
+      return res.sendFormattedResponse(404, false, `StKey not found with id: ${stKeyId}`);
     }
 
     stKey.name = name || stKey.name;
@@ -75,7 +75,7 @@ export const deleteStKey = async (req: Request, res: Response) => {
 
     const stKey = await stKeyModel.get(stKeyId);
     if (!stKey) {
-      return res.sendFormattedResponse(204, false, `StKey not found with id: ${stKeyId}`);
+      return res.sendFormattedResponse(404, false, `StKey not found with id: ${stKeyId}`);
     }
 
     await stKey.delete();

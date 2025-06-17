@@ -1,10 +1,17 @@
 import { Request, Response } from "express";
 import { v4 as uuidv4 } from "uuid";
 import questionModel from "../models/questionModel";
+import stKeyModel from "../models/stKeyModel";
 
 export const createQuestion = async (req: Request, res: Response) => {
   try {
     const { question, stKeyId, stKeyName } = req.body;
+
+    const stKey = await stKeyModel.get(stKeyId);
+
+    if (!stKey) {
+      return res.sendFormattedResponse(404, false, `StKey not found with id: ${stKeyId}`);
+    }
 
     const questions = new questionModel({
       id: uuidv4(),
@@ -30,7 +37,7 @@ export const getAllQuestions = async (req: Request, res: Response) => {
     const questions = await questionModel.scan().exec();
 
     if (questions.count === 0) {
-      return res.sendFormattedResponse(204, false, "No questions found.");
+      return res.sendFormattedResponse(404, false, "No questions found.");
     }
 
     res.sendFormattedResponse(200, true, null, questions);
@@ -51,7 +58,13 @@ export const updateQuestion = async (req: Request, res: Response) => {
 
     const qsn = await questionModel.get(questionId);
     if (!qsn) {
-      return res.sendFormattedResponse(204, false, `Question not found with id: ${questionId}`);
+      return res.sendFormattedResponse(404, false, `Question not found with id: ${questionId}`);
+    }
+
+    const stKey = await stKeyModel.get(stKeyId);
+
+    if (!stKey) {
+      return res.sendFormattedResponse(404, false, `StKey not found with id: ${stKeyId}`);
     }
 
     qsn.stKeyId = stKeyId || qsn.stKeyId;
@@ -76,7 +89,7 @@ export const deleteQuestion = async (req: Request, res: Response) => {
 
     const question = await questionModel.get(questionId);
     if (!question) {
-      return res.sendFormattedResponse(204, false, `Question not found with id: ${questionId}`);
+      return res.sendFormattedResponse(404, false, `Question not found with id: ${questionId}`);
     }
 
     await question.delete();
