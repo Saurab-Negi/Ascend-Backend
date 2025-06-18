@@ -5,6 +5,7 @@ stages:
   default:
     params:
       tableName: "ascend-${sls:stage}"
+      bucketName: "ascend-${sls:stage}"
 
 provider:
   name: aws

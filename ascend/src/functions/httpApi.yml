@@ -6,6 +6,10 @@ api:
         method: post
 
     - httpApi:
+        path: /generatePresignedUrl
+        method: post
+
+    - httpApi:
         path: /createStKey
         method: post
     - httpApi:

@@ -6,11 +6,13 @@ export const createStKey = async (req: Request, res: Response) => {
   try {
     const { name, description, icon } = req.body;
 
+    const iconUrl = `https://ascend-dev-st-key-logo.s3.ap-south-1.amazonaws.com/${icon}`;
+
     const stKey = new stKeyModel({
       id: uuidv4(),
       name,
       description,
-      icon
+      icon: iconUrl
     });
 
     await stKey.save();
@@ -49,6 +51,8 @@ export const updateStKey = async (req: Request, res: Response) => {
     const { id: stKeyId } = req.params;
     const { name, description, icon } = req.body;
 
+    const iconUrl = `https://ascend-dev-st-key-logo.s3.ap-south-1.amazonaws.com/${icon}`;
+
     const stKey = await stKeyModel.get(stKeyId);
     if (!stKey) {
       return res.sendFormattedResponse(404, false, `StKey not found with id: ${stKeyId}`);
@@ -56,6 +60,7 @@ export const updateStKey = async (req: Request, res: Response) => {
 
     stKey.name = name || stKey.name;
     stKey.description = description || stKey.description;
+    stKey.icon = icon ? iconUrl : stKey.icon;
 
     await stKey.save();
     res.sendFormattedResponse(200, true, "StKey updated successfully", stKey);

@@ -8,8 +8,13 @@
     - dynamodb:UpdateItem
     - dynamodb:DeleteItem
     - dynamodb:DescribeTable
+    - s3:DeleteObject
+    - s3:PutObject
+    - s3:GetObject
   Resource:
     - Fn::GetAtt: [UserTable, Arn]
     - Fn::GetAtt: [StKeyTable, Arn]
     - Fn::GetAtt: [QuestionTable, Arn]
     - Fn::Sub: "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${QuestionTable}/index/stKeyIdIndex"
+
+    - Fn::Sub: "arn:aws:s3:::${param:bucketName}-st-key-logo/*"

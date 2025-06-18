@@ -43,3 +43,20 @@ Resources:
           Projection:
             ProjectionType: ALL
       TableName: !Sub ${param:tableName}-question
+
+  StKeyLogoBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub ${param:bucketName}-st-key-logo
+      PublicAccessBlockConfiguration:
+        BlockPublicPolicy: false
+      CorsConfiguration:
+          CorsRules:
+            - AllowedOrigins:
+                - "*"
+              AllowedMethods:
+                - GET
+                - POST
+                - DELETE
+              AllowedHeaders:
+                - "*"

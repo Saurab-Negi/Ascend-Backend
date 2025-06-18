@@ -4,12 +4,13 @@ import userModel from "../models/userModel";
 
 export const createUser = async (req: Request, res: Response) => {
   try {
-    const { firstName, lastName, email } = req.body;
+    const { firstName, lastName, userName, email } = req.body;
 
     const user = new userModel({
       id: uuidv4(),
       firstName,
       lastName,
+      userName,
       email,
     });
 
