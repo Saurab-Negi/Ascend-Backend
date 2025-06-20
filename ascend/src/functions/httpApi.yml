@@ -34,3 +34,23 @@ api:
     - httpApi:
         path: /deleteQuestion/{id}
         method: delete
+
+    - httpApi:
+        path: /createPrompt
+        method: post
+    - httpApi:
+        path: /getPrompts
+        method: get
+    - httpApi:
+        path: /editPrompt/{id}
+        method: patch
+    - httpApi:
+        path: /deletePrompt/{id}
+        method: delete
+
+    - httpApi:
+        path: /createPlan
+        method: post
+    - httpApi:
+        path: /getPlans
+        method: get

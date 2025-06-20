@@ -44,6 +44,30 @@ Resources:
             ProjectionType: ALL
       TableName: !Sub ${param:tableName}-question
 
+  PromptTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      BillingMode: PAY_PER_REQUEST
+      TableName: !Sub ${param:tableName}-prompt
+
+  PlanTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      BillingMode: PAY_PER_REQUEST
+      TableName: !Sub ${param:tableName}-plan
+
   StKeyLogoBucket:
     Type: AWS::S3::Bucket
     Properties:

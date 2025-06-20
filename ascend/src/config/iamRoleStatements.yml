@@ -16,5 +16,7 @@
     - Fn::GetAtt: [StKeyTable, Arn]
     - Fn::GetAtt: [QuestionTable, Arn]
     - Fn::Sub: "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${QuestionTable}/index/stKeyIdIndex"
+    - Fn::GetAtt: [PlanTable, Arn]
+    - Fn::GetAtt: [PromptTable, Arn]
 
     - Fn::Sub: "arn:aws:s3:::${param:bucketName}-st-key-logo/*"

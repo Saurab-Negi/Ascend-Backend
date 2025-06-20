@@ -3,5 +3,7 @@ BASE_URL: http://localhost:3000
 USER_KEY_TABLE: ${param:tableName}-user
 ST_KEY_TABLE: ${param:tableName}-stKey
 QUESTION_TABLE: ${param:tableName}-question
+PLAN_TABLE: ${param:tableName}-plan
+PROMPT_TABLE: ${param:tableName}-prompt
 
 StKeyLogoBucket: ${param:bucketName}-st-key-logo
