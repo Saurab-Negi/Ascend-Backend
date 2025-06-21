@@ -5,6 +5,7 @@ import stKeyRoute from "./stKeyRoute";
 import userRoute from "./userRoute";
 import planRoute from "./planRoute";
 import promptRoute from "./promptRoute";
+import templeRoute from "./templeRoute";
 
 const router = Router();
 
@@ -14,5 +15,6 @@ router.use("/", questionRoute);
 router.use("/", userRoute);
 router.use("/", planRoute);
 router.use("/", promptRoute);
+router.use("/", templeRoute);
 
 export default router;
