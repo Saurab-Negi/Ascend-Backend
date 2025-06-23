@@ -74,10 +74,19 @@ Resources:
       AttributeDefinitions:
         - AttributeName: id
           AttributeType: S
+        - AttributeName: stKeyId
+          AttributeType: S
       KeySchema:
         - AttributeName: id
           KeyType: HASH
       BillingMode: PAY_PER_REQUEST
+      GlobalSecondaryIndexes:
+        - IndexName: stKeyIdIndex
+          KeySchema:
+            - AttributeName: stKeyId
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
       TableName: !Sub ${param:tableName}-temple
 
   StKeyLogoBucket:
@@ -93,6 +102,38 @@ Resources:
               AllowedMethods:
                 - GET
                 - POST
+                - PUT
                 - DELETE
               AllowedHeaders:
                 - "*"
+
+  SoundBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub ${param:bucketName}-sound
+      PublicAccessBlockConfiguration:
+        BlockPublicPolicy: false
+      CorsConfiguration:
+          CorsRules:
+            - AllowedOrigins:
+                - "*"
+              AllowedMethods:
+                - GET
+                - POST
+                - PUT
+                - DELETE
+              AllowedHeaders:
+                - "*"
+
+  SoundBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref SoundBucket
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal: "*"
+            Action: "s3:*"
+            Resource: 
+              - !Sub "arn:aws:s3:::${param:bucketName}-sound/*"

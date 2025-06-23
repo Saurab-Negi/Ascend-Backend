@@ -8,3 +8,4 @@ PROMPT_TABLE: ${param:tableName}-prompt
 TEMPLE_TABLE: ${param:tableName}-temple
 
 StKeyLogoBucket: ${param:bucketName}-st-key-logo
+SoundBucket: ${param:bucketName}-sound

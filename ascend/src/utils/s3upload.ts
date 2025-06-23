@@ -2,9 +2,9 @@ import { lookup as mimeLookup } from 'mime-types';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 
-const s3 = new S3Client({ region: 'ap-south-1' });
+const s3 = new S3Client({ region: 'us-east-1' });
 
-export const generateUploadUrl = async (fileName: string) => {
+export const generateUploadUrl = async (fileName: string, bucketName: string) => {
   try {
     const fileType = mimeLookup(fileName);
 
@@ -15,7 +15,7 @@ export const generateUploadUrl = async (fileName: string) => {
     const fileKey = `${Date.now()}.${fileName}`; 
 
     const command = new PutObjectCommand({
-      Bucket: process.env.StKeyLogoBucket,
+      Bucket: bucketName,
       Key: fileKey,
       ContentType: fileType,
     });

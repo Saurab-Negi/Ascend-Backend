@@ -8,6 +8,18 @@ const templeSchema = new dynamoose.Schema(
       type: String,
       hashKey: true,
     },
+    stKeyId: {
+      type: String,
+      required: true,
+      index: {
+        type: "global",
+        name: "stKeyIdIndex",
+      },
+    },
+    stKeyName: {
+      type: String,
+      required: true,
+    },
     name: {
       type: String,
       required: true,
@@ -21,10 +33,6 @@ const templeSchema = new dynamoose.Schema(
       required: true,
     },
     color: {
-      type: String,
-      required: true,
-    },
-    logo: {
       type: String,
       required: true,
     },

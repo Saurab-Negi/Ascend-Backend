@@ -58,3 +58,12 @@ api:
     - httpApi:
         path: /createTemple
         method: post
+    - httpApi:
+        path: /getTemples
+        method: get
+    - httpApi:
+        path: /editTemple/{id}
+        method: patch
+    - httpApi:
+        path: /deleteTemple/{id}
+        method: delete

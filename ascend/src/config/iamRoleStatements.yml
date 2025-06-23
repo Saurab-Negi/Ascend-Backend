@@ -21,3 +21,4 @@
     - Fn::GetAtt: [TempleTable, Arn]
 
     - Fn::Sub: "arn:aws:s3:::${param:bucketName}-st-key-logo/*"
+    - Fn::Sub: "arn:aws:s3:::${param:bucketName}-sound/*"

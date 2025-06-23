@@ -3,13 +3,13 @@ import { generateUploadUrl } from "../utils/s3upload";
 
 export const generatePresignedUrl = async (req: Request, res: Response) => {
   try {
-    const { fileName } = req.body;
+    const { fileName, bucketName } = req.body;
 
-    if (!fileName) {
-      return res.sendFormattedResponse(400, false, "fileName is required");
+    if (!fileName || !bucketName) {
+      return res.sendFormattedResponse(400, false, "fileName and bucketName are required");
     }
 
-    const { url, fileKey } = await generateUploadUrl(fileName);
+    const { url, fileKey } = await generateUploadUrl(fileName, bucketName);
 
     res.sendFormattedResponse(200, true, "presigned URL generated successfully", { presignedUrl: url, fileKey });
   } catch (error) {
