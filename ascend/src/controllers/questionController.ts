@@ -51,7 +51,7 @@ export const getAllQuestions = async (req: Request, res: Response) => {
   }
 };
 
-export const updateQuestion = async (req: Request, res: Response) => {
+export const editQuestion = async (req: Request, res: Response) => {
   try {
     const { id: questionId } = req.params;
     const { question, stKeyId, stKeyName } = req.body;
@@ -74,7 +74,7 @@ export const updateQuestion = async (req: Request, res: Response) => {
     await qsn.save();
     res.sendFormattedResponse(200, true, "Question updated successfully", qsn);
   } catch (error) {
-    console.error("updateQuestion error: ", error);
+    console.error("editQuestion error: ", error);
     if (error instanceof Error) {
       res.sendFormattedResponse(500, false, "Internal server error", null, error.message);
     } else {

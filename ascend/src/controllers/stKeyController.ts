@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { v4 as uuidv4 } from "uuid";
 import stKeyModel from "../models/stKeyModel";
+import { removeObjFromS3 } from "../utils/s3Bucket";
 
 export const createStKey = async (req: Request, res: Response) => {
   try {
@@ -44,7 +45,7 @@ export const getStKey = async (req: Request, res: Response) => {
   }
 };
 
-export const updateStKey = async (req: Request, res: Response) => {
+export const editStKey = async (req: Request, res: Response) => {
   try {
     const { id: stKeyId } = req.params;
     const { name, description, icon } = req.body;
@@ -54,6 +55,11 @@ export const updateStKey = async (req: Request, res: Response) => {
       return res.sendFormattedResponse(404, false, `StKey not found with id: ${stKeyId}`);
     }
 
+    // Delete old icon from S3 if it has changed
+    if (icon && stKey.icon && stKey.icon !== icon) {
+      await removeObjFromS3(stKey.icon);
+    }
+
     stKey.name = name || stKey.name;
     stKey.description = description || stKey.description;
     stKey.icon = icon || stKey.icon;
@@ -61,7 +67,7 @@ export const updateStKey = async (req: Request, res: Response) => {
     await stKey.save();
     res.sendFormattedResponse(200, true, "StKey updated successfully", stKey);
   } catch (error) {
-    console.error("updateStKey error: ", error);
+    console.error("editStKey error: ", error);
     if (error instanceof Error) {
       res.sendFormattedResponse(500, false, "Internal server error", null, error.message);
     } else {
@@ -77,6 +83,10 @@ export const deleteStKey = async (req: Request, res: Response) => {
     const stKey = await stKeyModel.get(stKeyId);
     if (!stKey) {
       return res.sendFormattedResponse(404, false, `StKey not found with id: ${stKeyId}`);
+    }
+
+    if(stKey.icon) {
+      await removeObjFromS3(stKey.icon);
     }
 
     await stKey.delete();

@@ -16,7 +16,7 @@ api:
         path: /getStKey
         method: get
     - httpApi:
-        path: /updateStKey/{id}
+        path: /editStKey/{id}
         method: patch
     - httpApi:
         path: /deleteStKey/{id}
@@ -29,7 +29,7 @@ api:
         path: /getAllQuestions
         method: get
     - httpApi:
-        path: /updateQuestion/{id}
+        path: /editQuestion/{id}
         method: patch
     - httpApi:
         path: /deleteQuestion/{id}

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { generateUploadUrl } from "../utils/s3upload";
+import { generateUploadUrl } from "../utils/s3Bucket";
 
 export const generatePresignedUrl = async (req: Request, res: Response) => {
   try {
