@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { v4 as uuidv4 } from "uuid";
 import templeModel from "../models/templeModel";
+import { removeObjFromS3 } from "../utils/s3Bucket";
 
 export const createTemple = async (req: Request, res: Response) => {
   try {
@@ -58,6 +59,13 @@ export const editTemple = async (req: Request, res: Response) => {
       return res.sendFormattedResponse(404, false, `Temple not found with id: ${templeId}`);
     }
 
+    if (Array.isArray(sound) && Array.isArray(temple.sound)) {
+      const soundsToDelete = temple.sound.filter((oldSound) => !sound.includes(oldSound));
+      for (const sound of soundsToDelete) {
+        await removeObjFromS3(sound);
+      }
+    }
+
     temple.stKeyId = stKeyId || temple.stKeyId;
     temple.stKeyName = stKeyName || temple.stKeyName;
     temple.name = name || temple.name;
@@ -85,6 +93,12 @@ export const deleteTemple = async (req: Request, res: Response) => {
     const temple = await templeModel.get(templeId);
     if (!temple) {
       return res.sendFormattedResponse(404, false, `Temple not found with id: ${templeId}`);
+    }
+
+    if (temple.sound.length > 0 && Array.isArray(temple.sound)) {
+      for (const sound of temple.sound) {
+        await removeObjFromS3(sound);
+      }
     }
 
     await temple.delete();

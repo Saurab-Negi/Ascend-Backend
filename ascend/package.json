@@ -11,6 +11,7 @@
     "dynamoose": "^4.0.4",
     "express": "^4.19.2",
     "mime-types": "^3.0.1",
+    "openai": "^5.7.0",
     "serverless-http": "^3.2.0",
     "uuid": "^11.1.0",
     "validator": "^13.15.15"

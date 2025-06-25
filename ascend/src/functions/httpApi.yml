@@ -67,3 +67,10 @@ api:
     - httpApi:
         path: /deleteTemple/{id}
         method: delete
+
+    - httpApi:
+        path: /genStKeyQsn
+        method: post
+    - httpApi:
+        path: /genJourPmt
+        method: post
