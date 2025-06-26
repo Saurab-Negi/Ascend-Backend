@@ -25,6 +25,14 @@ const planSchema = new dynamoose.Schema(
       schema: [String],
       required: true,
     },
+    planColor: {
+      type: String,
+      required: true,
+    },
+    planIcon: {
+      type: String,
+      required: true,
+    },
   },
   { timestamps: true }
 );

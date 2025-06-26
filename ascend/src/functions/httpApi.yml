@@ -54,6 +54,12 @@ api:
     - httpApi:
         path: /getPlans
         method: get
+    - httpApi:
+        path: /editPlan/{id}
+        method: patch
+    - httpApi:
+        path: /deletePlan/{id}
+        method: delete
 
     - httpApi:
         path: /createTemple
