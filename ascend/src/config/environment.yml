@@ -7,6 +7,7 @@ QUESTION_TABLE: ${param:tableName}-question
 PLAN_TABLE: ${param:tableName}-plan
 PROMPT_TABLE: ${param:tableName}-prompt
 TEMPLE_TABLE: ${param:tableName}-temple
+ST_KEY_ASS_TABLE: ${param:tableName}-stKeyAssessment
 
 StKeyLogoBucket: ${param:bucketName}-st-key-logo
 SoundBucket: ${param:bucketName}-sound

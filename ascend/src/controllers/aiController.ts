@@ -9,11 +9,17 @@ export const genStKeyQsn = async (req: Request, res: Response) => {
       res.sendFormattedResponse(400, false, "Missing stKeyName in request body.");
     }
 
-    const prompt = `Generate a reflective, wellness-oriented question **as if a therapist or coach is asking the user** based on the theme "${stKeyName}". Only return the question without any introduction, conclusion, or additional commentary.`;
+    const prompt = `Generate 4 reflective, wellness-oriented questions **as if a therapist or coach is asking the user** based on the theme "${stKeyName}". Only return the questions without any introduction, conclusion, or additional commentary.`;
 
     const response = await generateCompletion(prompt);
 
-    res.sendFormattedResponse(200, true, null, response);
+    if (!response) {
+      return res.sendFormattedResponse(500, false, "Failed to generate questions");
+    }
+
+    const responseArray = response.split(/\n?\d+\.\s+/).filter(q => q.trim()).map(q => q.replace(/\s+/g, ' ').trim());
+
+    res.sendFormattedResponse(200, true, null, responseArray);
   } catch (error) {
     console.error("genStKeyQsn error: ", error);
     if (error instanceof Error) {
@@ -26,11 +32,17 @@ export const genStKeyQsn = async (req: Request, res: Response) => {
 
 export const genJourPmt = async (req: Request, res: Response) => {
   try {
-    const prompt = `Generate a thoughtful reflection question **as if a therapist or coach is asking the user** which is suitable for a personal journaling exercise. The question should encourage deep self-awareness, personal growth, and introspection. Only return the question without any introduction, conclusion, or additional commentary.`;
+    const prompt = `Generate 4 thoughtful reflection question **as if a therapist or coach is asking the user** which is suitable for a personal journaling exercise. The questions should encourage deep self-awareness, personal growth, and introspection. Only return the questions without any introduction, conclusion, or additional commentary.`;
 
     const response = await generateCompletion(prompt);
 
-    res.sendFormattedResponse(200, true, null, response);
+    if (!response) {
+      return res.sendFormattedResponse(500, false, "Failed to generate prompts");
+    }
+
+    const responseArray = response.split(/\n?\d+\.\s+/).filter(q => q.trim()).map(q => q.replace(/\s+/g, ' ').trim());
+
+    res.sendFormattedResponse(200, true, null, responseArray);
   } catch (error) {
     console.error("genJourPmt error: ", error);
     if (error instanceof Error) {

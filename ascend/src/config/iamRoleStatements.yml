@@ -19,6 +19,8 @@
     - Fn::GetAtt: [PlanTable, Arn]
     - Fn::GetAtt: [PromptTable, Arn]
     - Fn::GetAtt: [TempleTable, Arn]
+    - Fn::GetAtt: [StKeyAssessmentTable, Arn]
+    - Fn::Sub: "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${StKeyAssessmentTable}/index/userIdIndex"
 
     - Fn::Sub: "arn:aws:s3:::${param:bucketName}-st-key-logo/*"
     - Fn::Sub: "arn:aws:s3:::${param:bucketName}-sound/*"
